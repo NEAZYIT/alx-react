@@ -12,7 +12,7 @@ ALX-React is organized into the following directories:
 
 | Directory        | Description                                                                                           |
 |------------------|-------------------------------------------------------------------------------------------------------|
-| [0x00. Webpack](https://github.com/NEAZYIT/alx-react/tree/main/0x00-Webpack) | A set of tasks focusing on Webpack configuration and usage.                                           |
+| [0x00-Webpack](https://github.com/NEAZYIT/alx-react/tree/master/0x00-Webpack) | A set of tasks focusing on Webpack configuration and usage.                                           |
 | ...              | ...                                                                                                   |
 
 
