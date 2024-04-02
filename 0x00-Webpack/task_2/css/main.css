@@ -1,0 +1,15 @@
+/* main.css */
+
+/* Position counter text to the right of the button and make it bold */
+#count {
+    display: inline-block;
+    font-weight: bold;
+}
+
+/* Add styles for the logo */
+#logo {
+    width: 200px;
+    height: 200px;
+    background-image: url('../assets/holberton-logo.jpg');
+    background-size: cover;
+}
