@@ -23,6 +23,7 @@ module.exports = {
                             name: '[name].[ext]',
                         },
                     },
+                    'image-webpack-loader',
                 ],
             },
         ],
