@@ -1,4 +1,5 @@
 const path = require('path');
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 module.exports = {
     entry: './js/dashboard_main.js',
@@ -12,18 +13,12 @@ module.exports = {
                 test: /\.css$/i,
                 use: ['style-loader', 'css-loader'],
             },
-
             {
                 test: /\.(png|jpe?g|gif)$/i,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[ext]',
-                            outputPath: 'images/',
-                        },
-                    },
-                ],
+                type: 'asset/resource',
+                generator: {
+                    filename: 'images/[name][ext]',
+                },
             },
         ],
     },
@@ -31,4 +26,24 @@ module.exports = {
         minimize: true,
     },
     mode: 'production',
+    plugins: [
+        new ImageMinimizerPlugin({
+            minimizer: [
+                // Specify your image optimization plugins here
+                ['jpegtran', { progressive: true }],
+                ['optipng', { optimizationLevel: 5 }],
+                [
+                    'svgo',
+                    {
+                        plugins: [
+                            {
+                                removeViewBox: false,
+                            },
+                        ],
+                    },
+                ],
+            ],
+        }),
+        // ... other plugins ...
+    ],
 };
