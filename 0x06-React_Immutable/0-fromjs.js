@@ -1,6 +1,7 @@
-// 0-fromjs.test.fromJS
-import { fromJS } from 'immutable';
+// Import the necessary library
+const { fromJS } = require('immutable');
 
-export function getImmutableObject(object) {
+// Define the function
+function getImmutableObject(object) {
     return fromJS(object);
 }
