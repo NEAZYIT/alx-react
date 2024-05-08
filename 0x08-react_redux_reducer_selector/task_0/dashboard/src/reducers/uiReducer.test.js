@@ -1,5 +1,6 @@
 // uiReducer.test.js
 
+import { Map } from 'immutable';
 import uiReducer from './uiReducer';
 import * as actionTypes from '../actions/uiActionTypes';
 
@@ -11,11 +12,11 @@ describe('uiReducer', () => {
      * Test that the reducer returns the initial state when no state or action is provided.
      */
     it('should return the initial state', () => {
-        const initialState = {
+        const initialState = Map({
             isNotificationDrawerVisible: false,
             isUserLoggedIn: false,
-            user: {}
-        };
+            user: Map({})
+        });
         expect(uiReducer(undefined, {})).toEqual(initialState);
     });
 
@@ -23,11 +24,11 @@ describe('uiReducer', () => {
      * Test that the reducer does not change the state for an unknown action.
      */
     it('should not change state for unknown action', () => {
-        const state = {
+        const state = Map({
             isNotificationDrawerVisible: true,
             isUserLoggedIn: true,
-            user: { name: 'John Doe' }
-        };
+            user: Map({ name: 'John Doe' })
+        });
         expect(uiReducer(state, { type: 'UNKNOWN_ACTION' })).toEqual(state);
     });
 
@@ -35,13 +36,11 @@ describe('uiReducer', () => {
      * Test that the reducer handles the DISPLAY_NOTIFICATION_DRAWER action correctly.
      */
     it('should handle DISPLAY_NOTIFICATION_DRAWER', () => {
-        const state = {
+        const state = Map({
             isNotificationDrawerVisible: false
-        };
+        });
         const action = { type: actionTypes.DISPLAY_NOTIFICATION_DRAWER };
-        const expectedState = {
-            isNotificationDrawerVisible: true
-        };
+        const expectedState = state.set('isNotificationDrawerVisible', true);
         expect(uiReducer(state, action)).toEqual(expectedState);
     });
 
@@ -49,13 +48,11 @@ describe('uiReducer', () => {
      * Test that the reducer handles the HIDE_NOTIFICATION_DRAWER action correctly.
      */
     it('should handle HIDE_NOTIFICATION_DRAWER', () => {
-        const state = {
+        const state = Map({
             isNotificationDrawerVisible: true
-        };
+        });
         const action = { type: actionTypes.HIDE_NOTIFICATION_DRAWER };
-        const expectedState = {
-            isNotificationDrawerVisible: false
-        };
+        const expectedState = state.set('isNotificationDrawerVisible', false);
         expect(uiReducer(state, action)).toEqual(expectedState);
     });
 
@@ -63,13 +60,11 @@ describe('uiReducer', () => {
      * Test that the reducer handles the LOGIN_SUCCESS action correctly.
      */
     it('should handle LOGIN_SUCCESS', () => {
-        const state = {
+        const state = Map({
             isUserLoggedIn: false
-        };
+        });
         const action = { type: actionTypes.LOGIN_SUCCESS };
-        const expectedState = {
-            isUserLoggedIn: true
-        };
+        const expectedState = state.set('isUserLoggedIn', true);
         expect(uiReducer(state, action)).toEqual(expectedState);
     });
 
@@ -77,13 +72,13 @@ describe('uiReducer', () => {
      * Test that the reducer handles the LOGIN_FAILURE action correctly.
      */
     it('should handle LOGIN_FAILURE', () => {
-        const state = {
+        const state = Map({
             isUserLoggedIn: true
-        };
+        });
         const action = { type: actionTypes.LOGIN_FAILURE };
-        const expectedState = {
+        const expectedState = state.set({
             isUserLoggedIn: false
-        };
+        });
         expect(uiReducer(state, action)).toEqual(expectedState);
     });
 
@@ -91,13 +86,13 @@ describe('uiReducer', () => {
      * Test that the reducer handles the LOGOUT action correctly.
      */
     it('should handle LOGOUT', () => {
-        const state = {
+        const state = Map({
             isUserLoggedIn: true
-        };
+        });
         const action = { type: actionTypes.LOGOUT };
-        const expectedState = {
+        const expectedState = state.set({
             isUserLoggedIn: false
-        };
+        });
         expect(uiReducer(state, action)).toEqual(expectedState);
     });
 });
