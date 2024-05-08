@@ -1,8 +1,15 @@
 // src/reducers/courseReducer.js
 
-import { FETCH_COURSE_SUCCESS } from '../actions/courseActionTypes';
+import * as data from '../../notifications.json';
+import { coursesNormalizer } from '../schema/courses';
+import { Map, setIn, merge } from 'immutable';
+import { FETCH_COURSE_SUCCESS, SELECT_COURSE, UNSELECT_COURSE } from '../actions/courseActionTypes';
 
-const initialState = [];
+const initialState = Map({
+    isLoading: false,
+    data: coursesNormalizer(data.default.courses).entities.courses,
+    selectedCourse: null,
+});
 
 const courseReducer = (state = initialState, action) => {
     switch (action.type) {

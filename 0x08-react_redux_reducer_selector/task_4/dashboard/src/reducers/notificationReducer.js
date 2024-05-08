@@ -1,9 +1,12 @@
+import { Map, merge, setIn } from 'immutable';
+import * as data from '../../notifications.json';
+import { notificationsNormalizer } from '../schema/notifications';
 import { FETCH_NOTIFICATIONS_SUCCESS, MARK_AS_READ, SET_TYPE_FILTER } from '../actions/notificationActionTypes';
 
-const initialState = {
-    notifications: [],
+const initialState = Map({
+    notifications: notificationsNormalizer(data.default.notifications).entities.notifications,
     filter: 'DEFAULT',
-};
+});
 
 const notificationReducer = (state = initialState, action) => {
     switch (action.type) {

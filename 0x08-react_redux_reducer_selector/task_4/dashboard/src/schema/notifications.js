@@ -1,5 +1,6 @@
 // Import the normalized data entities from the notifications module.
 import { entities } from './notifications';
+import * as normalizr from 'normalizr';
 
 /**
  * Retrieves all notifications for a given user from the normalized dataset.
@@ -18,3 +19,13 @@ export function getAllNotificationsByUser(userId) {
     // Map over the notifications to retrieve their context from the messages entity.
     return userNotifications.map(notificationId => entities.messages[notificationId].context);
 }
+
+// Define the notification schema
+const notificationSchema = new normalizr.schema.Entity(
+    'notifications',
+    {},
+    { idAttribute: 'id' }
+);
+
+// Define the normalizer function
+export const notificationsNormalizer = (data) => normalizr.normalize(data, [notificationSchema]);
