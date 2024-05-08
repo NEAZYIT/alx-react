@@ -15,7 +15,6 @@ Welcome to the Alx-React Redux Reducer & Selector Project! This project aims to 
     - [Task 3: Create a Reducer for Notifications](#task-3-create-a-reducer-for-notifications)
     - [Task 4: Normalizr \& Immutable](#task-4-normalizr--immutable)
     - [Task 5: Selectors](#task-5-selectors)
-  - [📝 License](#-license)
 
 ## 🎓 Curriculum
 
@@ -61,7 +60,3 @@ Implement selectors for efficiently accessing data from the notification reducer
 Feel free to explore each task further in the respective directories of the project repository. If you have any questions or need assistance, don't hesitate to reach out! 😊🚀
 
 ---
-
-## 📝 License
-
-This project is licensed under the MIT
