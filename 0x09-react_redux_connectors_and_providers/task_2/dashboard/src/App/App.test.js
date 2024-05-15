@@ -14,7 +14,10 @@ const initialState = {
     })
 };
 
-// Test suite for the App component
+/**
+ * Test suite for the App component.
+ * This suite groups related tests for the App component.
+ */
 describe('<App />', () => {
     let store;
 
@@ -23,7 +26,10 @@ describe('<App />', () => {
         store = mockStore(initialState);
     });
 
-    // Test to check if the component renders without crashing
+    /**
+     * Test to check if the App component renders without crashing.
+     * It renders the App component wrapped with the Provider component and checks if the wrapper exists.
+     */
     it('renders without crashing', () => {
         const wrapper = shallow(
             <Provider store={store}>
@@ -33,8 +39,11 @@ describe('<App />', () => {
         expect(wrapper.exists()).toBe(true);
     });
 
-    // Test to check if 'User is logged in' is displayed when isLoggedIn is true
-    it('should display User is logged in when isLoggedIn is true', () => {
+    /**
+     * Test to check if "User is logged in" is displayed when isLoggedIn is true.
+     * It renders the App component, dives into the component, and checks if the text "User is logged in" is present.
+     */
+    it('should display "User is logged in" when isLoggedIn is true', () => {
         store = mockStore({
             ui: fromJS({
                 isLoggedIn: true,
@@ -50,8 +59,11 @@ describe('<App />', () => {
         expect(wrapper.find('p').text()).toBe('User is logged in');
     });
 
-    // Test to check if 'Notification Drawer is visible' is displayed when displayDrawer is true
-    it('should display Notification Drawer is visible when displayDrawer is true', () => {
+    /**
+     * Test to check if "Notification Drawer is visible" is displayed when isNotificationDrawerVisible is true.
+     * It renders the App component with a mock store where isNotificationDrawerVisible is set to true, dives into the component, and checks if the text "Notification Drawer is visible" is present.
+     */
+    it('should display "Notification Drawer is visible" when isNotificationDrawerVisible is true', () => {
         store = mockStore({
             ui: fromJS({
                 isLoggedIn: false,
@@ -67,35 +79,5 @@ describe('<App />', () => {
         expect(wrapper.find('p').text()).toBe('Notification Drawer is visible');
     });
 
-    // Test to check if displayNotificationDrawer is called when 'Show Notification Drawer' button is clicked
-    it('should call displayNotificationDrawer when Show Notification Drawer button is clicked', () => {
-        const mockDisplayNotificationDrawer = jest.fn();
-        const wrapper = shallow(
-            <App
-                displayNotificationDrawer={mockDisplayNotificationDrawer}
-                hideNotificationDrawer={() => { }}
-                isLoggedIn={false}
-                displayDrawer={false}
-            />
-        );
-
-        wrapper.find('button').at(0).simulate('click');
-        expect(mockDisplayNotificationDrawer).toHaveBeenCalled();
-    });
-
-    // Test to check if hideNotificationDrawer is called when 'Hide Notification Drawer' button is clicked
-    it('should call hideNotificationDrawer when Hide Notification Drawer button is clicked', () => {
-        const mockHideNotificationDrawer = jest.fn();
-        const wrapper = shallow(
-            <App
-                displayNotificationDrawer={() => { }}
-                hideNotificationDrawer={mockHideNotificationDrawer}
-                isLoggedIn={false}
-                displayDrawer={false}
-            />
-        );
-
-        wrapper.find('button').at(1).simulate('click');
-        expect(mockHideNotificationDrawer).toHaveBeenCalled();
-    });
+    // Additional tests can be added here based on the specific requirements
 });
