@@ -1,3 +1,6 @@
+// uiReducer.test.js
+
+
 import { Map } from 'immutable';
 import uiReducer from './uiReducer';  // Import the uiReducer function
 import * as actionTypes from '../actions/uiActionTypes';
