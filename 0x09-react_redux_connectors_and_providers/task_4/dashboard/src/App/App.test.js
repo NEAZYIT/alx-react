@@ -8,10 +8,9 @@ import { fromJS } from 'immutable';
 // Create a mock Redux store
 const mockStore = configureMockStore();
 const initialState = {
-    ui: fromJS({
-        isLoggedIn: false,
-        isNotificationDrawerVisible: false
-    })
+    courses: {},
+    notifications: {},
+    ui: {}
 };
 
 /**
@@ -41,10 +40,12 @@ describe('<App />', () => {
 
     /**
      * Test to check if "User is logged in" is displayed when isLoggedIn is true.
-     * It renders the App component, dives into the component, and checks if the text "User is logged in" is present.
+     * It renders the App component with a mock store where isLoggedIn is true, dives into the component, and checks if the text "User is logged in" is present.
      */
     it('should display "User is logged in" when isLoggedIn is true', () => {
         store = mockStore({
+            courses: {},
+            notifications: {},
             ui: fromJS({
                 isLoggedIn: true,
                 isNotificationDrawerVisible: false
@@ -61,10 +62,12 @@ describe('<App />', () => {
 
     /**
      * Test to check if "Notification Drawer is visible" is displayed when isNotificationDrawerVisible is true.
-     * It renders the App component with a mock store where isNotificationDrawerVisible is set to true, dives into the component, and checks if the text "Notification Drawer is visible" is present.
+     * It renders the App component with a mock store where isNotificationDrawerVisible is true, dives into the component, and checks if the text "Notification Drawer is visible" is present.
      */
     it('should display "Notification Drawer is visible" when isNotificationDrawerVisible is true', () => {
         store = mockStore({
+            courses: {},
+            notifications: {},
             ui: fromJS({
                 isLoggedIn: false,
                 isNotificationDrawerVisible: true
