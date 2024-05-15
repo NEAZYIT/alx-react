@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchNotifications } from '../actions/notificationActionCreators';
 
 /**
- * Notifications component.
- * This component displays a list of notifications fetched from the Redux store.
+ * Notifications component to display a list of notifications.
  */
 class Notifications extends Component {
     /**
@@ -30,7 +30,7 @@ class Notifications extends Component {
             <div>
                 <h1>Notifications</h1>
                 <ul>
-                    {listNotifications.map(notification => (
+                    {listNotifications.valueSeq().map(notification => (
                         <li key={notification.id}>{notification.message}</li>
                     ))}
                 </ul>
@@ -40,16 +40,25 @@ class Notifications extends Component {
 }
 
 /**
+ * PropTypes for the Notifications component.
+ * It defines the expected prop types for the component.
+ */
+Notifications.propTypes = {
+    listNotifications: PropTypes.object.isRequired,
+    fetchNotifications: PropTypes.func.isRequired,
+};
+
+/**
  * Maps the Redux state to the props of the Notifications component.
  * This function is used to connect the Redux state to the React component.
- * It extracts the notifications from the Redux state and converts the Immutable.js Map to a plain JavaScript object.
+ * It extracts the notifications from the Redux state and maps them to the listNotifications prop.
  *
  * @param {Object} state - The Redux state object.
  * @returns {Object} - An object containing the listNotifications prop derived from the state.
  */
 const mapStateToProps = (state) => {
     return {
-        listNotifications: state.notifications.toJS() // Convert Immutable.js Map to plain JavaScript object
+        listNotifications: state.notifications.get('notifications')
     };
 };
 

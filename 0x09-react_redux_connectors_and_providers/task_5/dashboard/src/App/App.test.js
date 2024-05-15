@@ -5,7 +5,9 @@ import configureMockStore from 'redux-mock-store';
 import App from './App';
 import { fromJS } from 'immutable';
 
-// Create a mock Redux store
+/**
+ * Creates a mock Redux store for testing.
+ */
 const mockStore = configureMockStore();
 const initialState = {
     courses: {},
@@ -20,7 +22,9 @@ const initialState = {
 describe('<App />', () => {
     let store;
 
-    // Set up the mock store before each test
+    /**
+     * Sets up the mock store before each test.
+     */
     beforeEach(() => {
         store = mockStore(initialState);
     });
@@ -81,6 +85,4 @@ describe('<App />', () => {
 
         expect(wrapper.find('p').text()).toBe('Notification Drawer is visible');
     });
-
-    // Additional tests can be added here based on the specific requirements
 });
