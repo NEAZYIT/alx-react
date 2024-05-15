@@ -1,31 +1,59 @@
-import { createSelector } from 'reselect';
+import { fromJS } from 'immutable';
+import { getUnreadNotificationsByType } from './notificationSelector';
 
-// Assuming these are the relevant parts of your state structure
-const getNotifications = (state) => state.notifications;
-const getFilter = (state) => state.filter;
+describe('notificationSelector', () => {
+    // Define mock state for the tests
+    const mockState = {
+        notifications: fromJS({
+            1: { id: 1, message: 'Test Notification 1', isRead: false, type: 'default' },
+            2: { id: 2, message: 'Test Notification 2', isRead: false, type: 'urgent' },
+            3: { id: 3, message: 'Test Notification 3', isRead: true, type: 'default' },
+            4: { id: 4, message: 'Test Notification 4', isRead: false, type: 'urgent' }
+        }),
+        filter: 'default'
+    };
 
-/**
- * Selector to get unread notifications filtered by type.
- * This selector is created using createSelector from the reselect library.
- * It takes an array of input selectors and a function to transform the inputs into the final output.
- * In this case, the input selectors are getNotifications and getFilter, and the transformation function filters the notifications based on read status and type.
- */
-const getUnreadNotificationsByType = createSelector(
-    [getNotifications, getFilter], // Input selectors
-    (notifications, filter) => { // Transformation function
-        // Filter notifications based on read status and type
-        return notifications.filter(notification => {
-            if (!notification.isRead) {
-                if (filter === 'default') {
-                    return true;
-                } else if (filter === 'urgent' && notification.type === 'urgent') {
-                    return true;
-                }
-            }
-            return false;
-        });
-    }
-);
+    // Test that the getUnreadNotificationsByType selector returns unread default notifications when the filter is set to 'default'
+    it('should return unread default notifications when filter is set to default', () => {
+        const state = { ...mockState, filter: 'default' };
+        const result = getUnreadNotificationsByType(state);
+        const expected = [
+            { id: 1, message: 'Test Notification 1', isRead: false, type: 'default' }
+        ];
+        expect(result.toJS()).toEqual(expected);
+    });
 
-// Export the getUnreadNotificationsByType selector
-export { getUnreadNotificationsByType }
+    // Test that the getUnreadNotificationsByType selector returns unread urgent notifications when the filter is set to 'urgent'
+    it('should return unread urgent notifications when filter is set to urgent', () => {
+        const state = { ...mockState, filter: 'urgent' };
+        const result = getUnreadNotificationsByType(state);
+        const expected = [
+            { id: 2, message: 'Test Notification 2', isRead: false, type: 'urgent' },
+            { id: 4, message: 'Test Notification 4', isRead: false, type: 'urgent' }
+        ];
+        expect(result.toJS()).toEqual(expected);
+    });
+
+    // Test that the getUnreadNotificationsByType selector returns an empty list if there are no unread notifications of the specified type
+    it('should return an empty list if there are no unread notifications of the specified type', () => {
+        const emptyUnreadState = {
+            notifications: fromJS({
+                1: { id: 1, message: 'Test Notification 1', isRead: true, type: 'default' },
+                2: { id: 2, message: 'Test Notification 2', isRead: true, type: 'urgent' }
+            }),
+            filter: 'default'
+        };
+        const result = getUnreadNotificationsByType(emptyUnreadState);
+        expect(result.toJS()).toEqual([]);
+    });
+
+    // Test that the getUnreadNotificationsByType selector returns an empty list if no notifications are present
+    it('should return an empty list if no notifications are present', () => {
+        const emptyState = {
+            notifications: fromJS({}),
+            filter: 'default'
+        };
+        const result = getUnreadNotificationsByType(emptyState);
+        expect(result.toJS()).toEqual([]);
+    });
+})
