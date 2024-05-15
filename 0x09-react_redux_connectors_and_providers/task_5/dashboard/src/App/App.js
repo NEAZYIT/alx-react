@@ -5,11 +5,14 @@ import './App.css';
 
 /**
  * Represents the main App component.
+ * This component displays a dashboard with login and logout functionality.
  */
 class App extends Component {
     /**
      * Render method of the App component.
      * This method is responsible for rendering the JSX of the component.
+     * It displays a header with a welcome message, login and logout buttons,
+     * and the login status along with any login errors.
      * 
      * @returns {JSX.Element} - The JSX for the component.
      */
@@ -31,7 +34,7 @@ class App extends Component {
 }
 
 /**
- * Maps the Redux state to the props of the component.
+ * Maps the Redux state to the props of the App component.
  * This function is used to connect the Redux state to the React component.
  * It takes the Redux state as an argument and returns an object containing the props derived from the state.
  *
@@ -44,7 +47,7 @@ const mapStateToProps = (state) => ({
 });
 
 /**
- * Maps the action creators to the props of the component.
+ * Maps the action creators to the props of the App component.
  * This function is used to connect the action creators to the React component.
  * It takes the dispatch function as an argument and returns an object containing the props derived from the action creators.
  *
