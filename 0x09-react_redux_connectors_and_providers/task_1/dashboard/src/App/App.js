@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
 
 /**
@@ -53,6 +54,20 @@ class App extends Component {
         );
     }
 }
+
+// Define prop types for the component
+App.propTypes = {
+    isLoggedIn: PropTypes.bool,
+    displayDrawer: PropTypes.bool,
+    displayNotificationDrawer: PropTypes.func.isRequired,
+    hideNotificationDrawer: PropTypes.func.isRequired
+};
+
+// Define default props for the component
+App.defaultProps = {
+    isLoggedIn: false,
+    displayDrawer: false
+};
 
 /**
  * Connects the Redux state and action creators to the App component.
